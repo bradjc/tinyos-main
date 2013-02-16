@@ -328,13 +328,23 @@ module IPForwardingEngineP {
 #ifdef PRINTFUART_ENABLED
   event void PrintTimer.fired() {
     int i;
-    printf("\ndestination                 gateway            interface\n");
+    static char print_buf[44];
+    char* buf;
+    printf("\ndestination                                ");
+    printf("gateway                                    ");
+    printf("interface\n");
     for (i = 0; i < ROUTE_TABLE_SZ; i++) {
       if (routing_table[i].valid) {
-        printf_in6addr(&routing_table[i].prefix);
-        printf("/%i\t\t", routing_table[i].prefixlen);
-        printf_in6addr(&routing_table[i].next_hop);
-        printf("\t\t%i\n", routing_table[i].ifindex);
+        buf = print_buf;
+
+        buf += inet_ntop6(&routing_table[i].prefix, print_buf, 44) - 1;
+        sprintf(buf, "/%i\0", routing_table[i].prefixlen);
+        printf("%-43s", print_buf);
+
+        inet_ntop6(&routing_table[i].next_hop, print_buf, 44);
+        printf("%-43s", print_buf);
+
+        printf("%i\n", routing_table[i].ifindex);
       }
     }
     printf("\n");
