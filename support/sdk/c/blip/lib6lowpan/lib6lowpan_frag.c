@@ -46,7 +46,7 @@ int lowpan_recon_start(struct ieee154_frame_addr *frame_addr,
     unpack_end = recon->r_buf + len;
   } else {
     /* unpack the first fragment */
-    unpack_end = lowpan_unpack_headers(recon, 
+    unpack_end = lowpan_unpack_headers(recon,
                                        frame_addr,
                                        unpack_point, len);
   }
@@ -60,14 +60,14 @@ int lowpan_recon_start(struct ieee154_frame_addr *frame_addr,
     recon->r_size = (unpack_end - recon->r_buf);
   }
   recon->r_bytes_rcvd = unpack_end - recon->r_buf;
-  ((struct ip6_hdr *)(recon->r_buf))->ip6_plen = 
+  ((struct ip6_hdr *)(recon->r_buf))->ip6_plen =
     htons(recon->r_size - sizeof(struct ip6_hdr));
   /* fill in any elided app data length fields */
   if (recon->r_app_len) {
-    *recon->r_app_len = 
+    *recon->r_app_len =
       htons(recon->r_size - (recon->r_transport_header - recon->r_buf));
   }
-  
+
   /* done, updated all the fields */
   /* reconstruction is complete if r_bytes_rcvd == r_size */
   return 0;
@@ -77,6 +77,12 @@ int lowpan_recon_add(struct lowpan_reconstruct *recon,
                      uint8_t *pkt, size_t len) {
   struct packed_lowmsg msg;
   uint8_t *buf;
+
+  // Check if the recon struct and buffer we are adding to has been initialized.
+  // This can be a problem if we drop the first fragmented packet.
+  if (recon->r_buf == NULL) {
+    return -4;
+  }
 
   msg.data = pkt;
   msg.len  = len;
@@ -132,7 +138,7 @@ int lowpan_frag_get(uint8_t *frag, size_t len,
     /* may need to fragment -- insert a FRAG1 header if so */
     if (extra_payload > len - (buf - ieee_buf)) {
       struct packed_lowmsg lowmsg;
-      memmove(lowpan_buf + LOWMSG_FRAG1_LEN, 
+      memmove(lowpan_buf + LOWMSG_FRAG1_LEN,
                 lowpan_buf,
                 buf - lowpan_buf);
 
@@ -150,7 +156,7 @@ int lowpan_frag_get(uint8_t *frag, size_t len,
       extra_payload -= (extra_payload % 8);
 
     }
-    
+
     if (iov_read(packet->ip6_data, offset, extra_payload, buf) != extra_payload) {
       return -3;
     }
