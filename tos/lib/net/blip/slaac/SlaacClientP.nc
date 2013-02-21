@@ -1,3 +1,5 @@
+#include "slaac.h"
+#include "ip.h"
 
 module SlaacClientP {
   provides {
@@ -12,7 +14,7 @@ module SlaacClientP {
   }
 }
 
-implemenatation {
+implementation {
 
   #define TIMER_PERIOD 15
 
@@ -20,7 +22,6 @@ implemenatation {
   bool adv_full_valid = FALSE;
 
   command error_t StdControl.start() {
-    state = SAC_SOLICIT;
     call Timer.startOneShot((1024L * TIMER_PERIOD) % (call Random.rand16()));
     return SUCCESS;
   }
@@ -31,7 +32,7 @@ implemenatation {
     return SUCCESS;
   }
 
-  void sendSolicit () {
+  void send_solicit () {
     struct ip6_packet pkt;
     struct ip_iovec v[1];
     struct slaac_rtr_sol_t msg;
@@ -140,5 +141,7 @@ implemenatation {
     // Send the router adv we got
 
   }
+
+  event void IPAddress.changed(bool global_valid) {}
 
 }

@@ -1,6 +1,8 @@
 #ifndef __SLAAC_H__
 #define __SLAAC_H__
 
+#include "ip.h"
+
 #define SLAACADDR_ALLROUTER "ff02::2"
 
 enum {

@@ -1,6 +1,6 @@
 # -*- makefile -*-
 
-PFLAGS += -DCC2420_HW_ACKNOWLEDGEMENTS 
+PFLAGS += -DCC2420_HW_ACKNOWLEDGEMENTS
 PFLAGS += -DCC2420_HW_ADDRESS_RECOGNITION
 PFLAGS += -DPACKET_LINK
 
@@ -18,13 +18,14 @@ PFLAGS+=-I$(TOSDIR)/lib/net/
 PFLAGS+=-I$(TOSDIR)/lib/printf/
 PFLAGS+=-I$(LOWPAN_ROOT)/support/sdk/c/blip/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/
-PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/interfaces/ 
+PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/interfaces/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/nwprog/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/shell/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/serial/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/platform/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/icmp/
 PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/dhcp/
+PFLAGS+=-I$(LOWPAN_ROOT)/tos/lib/net/blip/slaac/
 
 PFLAGS+=$(LOWPAN_ROOT)/support/sdk/c/blip/lib6lowpan/iovec.c
 PFLAGS+=$(LOWPAN_ROOT)/support/sdk/c/blip/lib6lowpan/in_cksum.c
