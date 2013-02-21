@@ -14,7 +14,7 @@
  *
  * NeighborDiscovery: responsible for address resolution.  Very
  * simple, since only link-local addresses are considered to be
- * on-link.  
+ * on-link.
  *
  * Dispatch: okay, this one's badly named.  It's the 6lowpan engine
  * which talks to a packet radio on the bottom and presents fully
@@ -42,16 +42,16 @@ configuration IPStackC {
   }
 } implementation {
 
-  components IPProtocolsP, 
-    IPForwardingEngineP as FwdP, 
-    IPNeighborDiscoveryC as NdC, 
+  components IPProtocolsP,
+    IPForwardingEngineP as FwdP,
+    IPNeighborDiscoveryC as NdC,
     IPDispatchC;
   components IPStackControlP;
   SplitControl = IPStackControlP;
   IPStackControlP.StdControl = StdControl;
   IPStackControlP.RoutingControl = RoutingControl;
   IPStackControlP.SubSplitControl -> IPDispatchC;
-  
+
   ForwardingTable = FwdP;
   ForwardingTableEvents = FwdP;
   ForwardingEvents = FwdP;
@@ -89,6 +89,7 @@ configuration IPStackC {
 #elif ! defined(IN6_NO_GLOBAL)
   components Dhcp6RelayC;
   components Dhcp6ClientC;
+//  components SlaacClientC;
 #endif
 
 #ifdef PRINTFUART_ENABLED
