@@ -3,6 +3,8 @@
  * buffer. Packets provided to this module will be interpreted as 802.15.4
  * frames and will have the sequence number set. All other fields must be set
  * by upper layers.
+ *
+ * @author Brad Campbell <bradjc@umich.edu>
  */
 
 configuration Ieee154BareC {
@@ -12,10 +14,6 @@ configuration Ieee154BareC {
     interface Packet as BarePacket;
     interface Send as BareSend;
     interface Receive as BareReceive;
-
-    interface LowPowerListening;
-    interface PacketLink;
-    interface PacketAcknowledgements;
   }
 }
 
@@ -27,8 +25,4 @@ implementation {
   BarePacket = CC2420RadioC.BarePacket;
   BareSend = CC2420RadioC.BareSend;
   BareReceive = CC2420RadioC.BareReceive;
-
-  LowPowerListening = CC2420RadioC.LowPowerListening;
-  PacketLink = CC2420RadioC.PacketLink;
-  PacketAcknowledgements = CC2420RadioC.PacketAcknowledgements;
 }
