@@ -10,6 +10,7 @@
 push( @includes, qw(
 
   %T/platforms/epic
+  %T/platforms/epic/eui64
   %T/platforms/epic/chips/at45db
   %T/platforms/epic/chips/ds2411
   %T/platforms/telosa
@@ -28,6 +29,7 @@ push( @includes, qw(
   %T/chips/cc2420/transmit
   %T/chips/cc2420/unique
   %T/chips/cc2420/security
+  %T/chips/ds2411
   %T/chips/msp430
   %T/chips/msp430/adc12
   %T/chips/msp430/dma
@@ -36,11 +38,11 @@ push( @includes, qw(
   %T/chips/msp430/usart
   %T/chips/msp430/sensors
   %T/chips/at45db
-  %T/chips/ds2401
   %T/lib/timer
   %T/lib/serial
   %T/lib/adc
   %T/lib/power
+  %T/system/onewire
 ) );
 
 # The @opts list contains parameters that are passed to ncc.
